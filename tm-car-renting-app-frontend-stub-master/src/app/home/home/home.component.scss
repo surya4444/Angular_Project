@@ -1,0 +1,29 @@
+.center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% ,-50%);
+    float: left;
+}
+
+.center1{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.move{
+    float: right;
+    padding-top: 2%;
+}
+
+.change{
+    width: 70%;
+    text-align: left;
+    font-size: 20px;
+}
+
+.btnCenter{
+    display: flex;
+    justify-content: center;
+}
