@@ -1,1 +1,163 @@
-<button class="btn">Sign In</button>
+<!-- <button class="btn">Sign In</button> -->
+<button type="button" class="btn" data-toggle="modal" (click)="showModal=true" id="sign-in-button">
+    Sign In
+</button>
+
+<div id="modals">
+  <div class="modal" id="registerModal" role="dialog" [ngClass] = "{'show': showModal}">
+    <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h5 class="modal-title color" id="registerModalLabel">Please Register</h5> -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" (click)="showModal=false">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="actions row">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item col-lg-6 center px-0 pl-1 pointer" role="presentation">
+                    <a id="signIn-tab" href="javascript:void(0);" (click)="toggleSignIn(true)" [ngClass]="isSignIn?'nav-link active':'nav-link'"><i class="fa fa-sign-in"></i>&nbsp;Sign in</a>
+                  </li>
+                  <li class="nav-item col-lg-6 center px-0 pl-1 pointer" role="presentation">
+                    <a id="signUp-tab" href="javascript:void(0);" (click)="toggleSignIn(false)" [ngClass]="!isSignIn?'nav-link active':'nav-link'"><i class="fa fa-user-plus"></i>&nbsp;Sign up</a>
+                  </li>
+                </ul>
+              </div>
+            <div class="tab-content row">
+                <div id="signInTab" [ngClass]="isSignIn?'tab-pane col-lg-12 px-5 py-5 active':'tab-pane col-lg-12 px-5 py-5'">
+                    <div class="card">
+                      <div class="card-header color center fontStyle">
+                        Sign in
+                      </div>
+                      <div class="card-body">
+                        <form class="user-form" [formGroup]="signInForm">
+                          <div>
+                            <div>
+                              <label for="email" class="color">Email Id:</label>
+                              <input type="email" [formControl]="email" name="email" class="form-input" id="email">
+                              <span class="error" *ngIf="(email.dirty || email.touched) && email.errors?.required">Email Id is required</span>
+                              <span class="error" *ngIf="(email.dirty || email.touched) && email.errors?.pattern">Enter a valid email address</span>
+                            </div>
+                            <div>
+                              <label for="lastName" class="color">Password:</label>
+                              <input [formControl]="password" type="password" name="password" class="form-input" id="password">
+                              <span class="error" *ngIf="(password.dirty || password.touched) && password.errors?.required">Password is required</span>
+                            </div>
+                            <div class="btnCenter">
+                              <button type="submit" (click)="submitForm()" class="btn btn-submit btnWidth" [disabled]="!signInForm.valid"> Sign In </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="btnCenter pt-5">
+                      <a id="forgotPassword-link" href="javascript:void(0);" data-toggle="modal" (click)="isForgotPasswordModalOpened=true"  (click)="ForgotPasswordModalOpened(true)">Forgot Password</a>
+                    </div>
+                    <div class="btnCenter pt-3">
+                      <p id="no-account-link" class="color" >Don't have an account? <a href="javascript:void(0);" (click)="toggleSignIn(false)" >Sign up</a></p>
+                    </div>
+                  </div>
+                  <div id="signUpTab" [ngClass]="!isSignIn?'tab-pane col-lg-12 px-5 py-5 active':'tab-pane col-lg-12 px-5 py-5'" >
+                    <div class="card">
+                      <div class="card-header color center fontStyle">
+                        Sign up
+                      </div>
+                      <div class="card-body">
+                        <div id="login">
+                        <form class="user-form" [formGroup]="signUpForm">
+                            <div>
+                              <div>
+                                <label for="firstName" class="color">First Name:</label>
+                                <input type="text" [formControl]="firstName" name="firstName" class="form-input" id="firstName">
+                                <span class="error" *ngIf="(firstName.dirty || firstName.touched) && firstName.errors?.required">First Name is required</span>
+                              </div>
+                              <div>
+                                <label for="lastName" class="color">Last Name:</label>
+                                <input  type="text" name="lastName" class="form-input" id="lastName">
+                              </div>
+                              <div>
+                                <label for="email1" class="color">Email Id:</label>
+                                <input type="email1" [formControl]="email1" name="email1" class="form-input" id="email1">
+                                <span class="error" *ngIf="(email1.dirty || email1.touched) && email1.errors?.required">Email Id is required</span>
+                                <span class="error" *ngIf="(email1.dirty || email1.touched) && email1.errors?.pattern">Enter a valid email address</span>
+                              </div>
+                              <div>
+                                <label for="mobileNumber" class="color">Mobile Number:</label>
+                                <input [formControl]="mobileNumber" type="text" name="mobileNumber" class="form-input" id="mobileNumber">
+                                <span class="error" *ngIf="(mobileNumber.dirty || mobileNumber.touched) && mobileNumber.errors?.required">Mobile number is required</span>
+                                <span class="error" *ngIf="(mobileNumber.dirty || mobileNumber.touched) && mobileNumber.errors?.pattern">Mobile number must have 10 digits only and cannot start with0</span>
+                              </div>
+                              <div>
+                                <label for="password1" class="color">Password:</label>
+                                <input [formControl]="password1" type="password" name="password1" class="form-input" id="password1">
+                                <span class="error" *ngIf="(password1.dirty || password1.touched) && password1.errors?.required">Password is required</span>
+                                <span class="error" *ngIf="(password1.dirty || password1.touched) && password1.errors?.pattern">Password should have minimum 5 characters, at least 1 uppercase letter, 1 lowercase 
+                                  letter and 1 number”</span>
+                              </div>
+                              <div>
+                                <label for="password2" class="color">Confirm Password:</label>
+                                <input [formControl]="password2" type="password" name="password2" class="form-input" id="password2">
+                                <span class="error" *ngIf="(password2.dirty || password2.touched) && password2.errors?.required">Confirm password is required.</span>
+                                <span class="error" *ngIf="(password2.dirty || password2.touched) && password2.errors?.pattern">Password should have minimum 5 characters, at least 1 uppercase letter, 1 lowercase 
+                                  letter and 1 number.”</span>
+                                <span class="error" *ngIf="password2.valid && password2.value != password1.value">Password and Confirm Password must be match</span>
+                              </div>
+                              <div class="btnCenter">
+                                <button type="submit" (click)="submitForm2()" class="btn btn-submit btnWidth" [disabled]="!signUpForm.valid || password2.value != password1.value"> Sign Up </button>
+                              </div>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <div id="forgotPasswordTab" [ngClass]="!isForgotPasswordModalOpened?'tab-pane col-lg-12 px-5 py-5 active':'tab-pane col-lg-12 px-5 py-5'" >
+    <div class="card">
+      <div class="card-header color center fontStyle">
+        Forgot Password
+      </div>
+      <div class="card-body">
+        <div id="login">
+          <form class="user-form" [formGroup]="forgotPasswordForm">
+            <div class="form-control">
+              <label for="email">Email ID:</label>
+              <input type="email" [formControl]="email" name="email" class="form-input" id="email">
+              <span class="error" *ngIf="(email.dirty || email.touched) && email.errors?.required">required</span>
+              <span class="error" *ngIf="(email.dirty || email.touched) && email.errors?.pattern">Give valid email</span>
+            </div>
+            <div class="form-control">
+              <label for="mobileNumber">Mobile Number:</label>
+              <input [formControl]="mobileNumber" type="text" name="mobileNumber" class="form-input" id="mobileNumber">
+              <span class="error" *ngIf="(mobileNumber.dirty || mobileNumber.touched) && mobileNumber.errors?.required">required</span>
+            </div>
+            <div>
+              <label for="password1" class="color">Password:</label>
+              <input [formControl]="password1" type="password" name="password1" class="form-input" id="password1">
+              <span class="error" *ngIf="(password1.dirty || password1.touched) && password1.errors?.required">Password is required</span>
+              <span class="error" *ngIf="(password1.dirty || password1.touched) && password1.errors?.pattern">Password should have minimum 5 characters, at least 1 uppercase letter, 1 lowercase 
+                letter and 1 number”</span>
+            </div>
+            <div>
+              <label for="password2" class="color">Confirm Password:</label>
+              <input [formControl]="password2" type="password" name="password2" class="form-input" id="password2">
+              <span class="error" *ngIf="(password2.dirty || password2.touched) && password2.errors?.required">Confirm password is required.</span>
+              <span class="error" *ngIf="(password2.dirty || password2.touched) && password2.errors?.pattern">Password should have minimum 5 characters, at least 1 uppercase letter, 1 lowercase 
+                letter and 1 number.”</span>
+              <span class="error" *ngIf="password2.valid && password2.value != password1.value">Password and Confirm Password must be match</span>
+            </div>
+            <div class="form-control">
+              <button type="submit" (click)="submitForm()" class="btn btn-submit" [disabled]="!forgotPasswordForm.valid || password2.value != password1.value"> Submit Form </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->

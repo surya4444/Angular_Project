@@ -2,3 +2,48 @@ button{
     background-color: #1565c0;
     color: white;
 }
+
+.color{
+    color: black;
+}
+
+.modal.show{
+    display: block;
+}
+
+label {
+    display: inline-block;
+    width: 25%;
+}
+
+.btnCenter{
+    display: flex;
+    justify-content: center;
+}
+
+.btnWidth{
+    width: 50%;
+}
+
+input{
+    width: 70%;
+}
+
+.error {
+    color: red;
+    position: relative;
+    font-size: small;
+    left: 25%;
+}
+
+.center {
+    text-align: center;
+  }
+
+.pointer{
+    cursor: pointer;
+}
+  
+.fontStyle{
+    font-size: 150%;
+}
